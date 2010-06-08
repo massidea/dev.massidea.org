@@ -7,3 +7,5 @@ Amazing dev.massidea.org developer server!
 * OpenVPN
    - Samba
 
+## Other tools
+* zsh-git (http://github.com/jcorbin/zsh-git/blob/master/zshrc)
