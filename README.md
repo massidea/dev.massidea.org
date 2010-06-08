@@ -8,4 +8,4 @@ Amazing dev.massidea.org developer server!
    - Samba
 
 ## Other tools
-* zsh-git (http://github.com/jcorbin/zsh-git/blob/master/zshrc)
+* zsh-git ([http://github.com/jcorbin/zsh-git/blob/master/zshrc](http://github.com/jcorbin/zsh-git/blob/master/zshrc))
