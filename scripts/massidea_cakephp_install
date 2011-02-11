@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+
+### dev.massidea.org 
+
 system "cd #{ENV['HOME']}"
 if File.directory? "#{ENV['HOME']}/massidea"
   setted = false
