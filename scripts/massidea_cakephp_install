@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+system "cd #{ENV['HOME']}"
+if File.directory? "#{ENV['HOME']}/massidea"
+  setted = false
+  while setted != true
+    puts "Delete old 'massidea' directory? (Y/n): "
+    delete = gets.chomp.downcase
+    
+    if delete == 'y'
+      system "rm -rf #{ENV['HOME']}/massidea"
+      setted = true
+    end
+    
+    if delete == 'n'
+      exit
+      setted = true
+    end
+  end
+end
+
+puts "Cloning Massidea CakePHP versio from Github (https://github.com/massidea/massidea-cakephp.git)"
+
+system "/usr/bin/git clone https://github.com/massidea/massidea-cakephp.git #{ENV['HOME']}/massidea"
+puts "\nCloning ready"
+
+puts "\n\nIgnoring paths"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/tmp/"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/config/"
+
+puts "\n\nIgnored .htaccess files"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged .htaccess"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged webroot/.htaccess"
+
+gitusername=`/usr/bin/git config --global user.name`
+gitemail=`/usr/bin/git config --global user.email`
+
+if gitusername.empty?
+  puts "\n\nNow let's set your username and email (http://help.github.com/git-email-settings/)"
+  puts "\nUsername (Github loginame) [#{ENV['USER']}]: "
+  username = gets.chomp
+  
+  if username.empty?
+    username = ENV['USER']
+  end
+  
+  system "/usr/bin/git config --global user.name #{username}"
+end
+
+if gitemail.empty?
+  setted = false
+  while setted
+    puts "Email: "
+    email = gets.chomp
+    if email.empty?
+      puts "Write email!\n"
+    else
+      system "/usr/bin/git config --global user.email #{email}"
+      setted = true;
+    end
+  end
+end
+
+## LET'S MAKE SOME CHMOD WORK!
+system "chmod 777 -R #{ENV['HOME']}/massidea/tmp/"
+
+if File.exists? "#{ENV['HOME']}/massidea/.htaccess"
+  file = "#{ENV['HOME']}/massidea/.htaccess"
+  replacer = File.read(file).gsub(/RewriteBase (.*)\n/, "RewriteBase /~#{ENV['USER']}/\n")
+  
+  File.open(file, "w") do |f|
+    f.puts "#{replacer}"
+  end
+end
+
+if File.exists? "#{ENV['HOME']}/massidea/webroot/.htaccess"
+  file = "#{ENV['HOME']}/massidea/webroot/.htaccess"
+  replacer = File.read(file).gsub(/RewriteBase (.*)\n/, "RewriteBase /~#{ENV['USER']}/\n")
+  
+  File.open(file, "w") do |f|
+    f.puts "#{replacer}"
+  end
+end
+
+
+puts "INSTALLATION DONE"
