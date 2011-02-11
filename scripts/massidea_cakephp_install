@@ -1,7 +1,4 @@
 #!/usr/bin/env ruby
-
-### dev.massidea.org 
-
 system "cd #{ENV['HOME']}"
 if File.directory? "#{ENV['HOME']}/massidea"
   setted = false
@@ -46,7 +43,7 @@ if gitusername.empty?
     username = ENV['USER']
   end
   
-  system "/usr/bin/git config --global user.name #{username}"
+  system "/usr/bin/git config --global user.name \"#{username}\""
 end
 
 if gitemail.empty?
@@ -57,7 +54,7 @@ if gitemail.empty?
     if email.empty?
       puts "Write email!\n"
     else
-      system "/usr/bin/git config --global user.email #{email}"
+      system "/usr/bin/git config --global user.email \"#{email}\""
       setted = true;
     end
   end
