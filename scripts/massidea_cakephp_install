@@ -18,19 +18,6 @@ if File.directory? "#{ENV['HOME']}/massidea"
   end
 end
 
-puts "Cloning Massidea CakePHP versio from Github (https://github.com/massidea/massidea-cakephp.git)"
-
-system "/usr/bin/git clone https://github.com/massidea/massidea-cakephp.git #{ENV['HOME']}/massidea"
-puts "\nCloning ready"
-
-puts "\n\nIgnoring paths"
-system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/tmp/"
-system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/config/"
-
-puts "\n\nIgnored .htaccess files"
-system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged .htaccess"
-system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged webroot/.htaccess"
-
 gitusername=`/usr/bin/git config --global user.name`
 gitemail=`/usr/bin/git config --global user.email`
 
@@ -59,6 +46,20 @@ if gitemail.empty?
     end
   end
 end
+
+puts "Cloning Massidea CakePHP versio from Github (https://github.com/massidea/massidea-cakephp.git)"
+
+system "/usr/bin/git clone https://github.com/\"#{username}\"/massidea-cakephp.git #{ENV['HOME']}/massidea"
+puts "\nCloning ready"
+
+puts "\n\nIgnoring paths"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/tmp/"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged #{ENV['HOME']}/massidea/config/"
+
+puts "\n\nIgnored .htaccess files"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged .htaccess"
+system "cd #{ENV['HOME']}/massidea/ && /usr/bin/git update-index --assume-unchanged webroot/.htaccess"
+
 
 ## LET'S MAKE SOME CHMOD WORK!
 system "chmod 777 -R #{ENV['HOME']}/massidea/tmp/"
