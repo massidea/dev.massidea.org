@@ -48,8 +48,8 @@ if gitemail.empty?
 end
 
 puts "Cloning Massidea CakePHP versio from Github (https://github.com/massidea/massidea-cakephp.git)"
-
-system "/usr/bin/git clone https://github.com/\"#{username}\"/massidea-cakephp.git #{ENV['HOME']}/massidea"
+gitusername=`/usr/bin/git config --global user.name`
+system "/usr/bin/git clone https://github.com/\"#{gitusername}\"/massidea-cakephp.git #{ENV['HOME']}/massidea"
 puts "\nCloning ready"
 
 puts "\n\nIgnoring paths"
