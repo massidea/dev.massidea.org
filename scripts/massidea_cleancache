@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+system "cd #{ENV['HOME']}"
+if File.directory? "#{ENV['HOME']}/massidea"
+    puts "Delete cache files? (y/n): "
+    delete = gets.chomp.downcase
+
+    if delete == 'y'
+      system "rm -f #{ENV['HOME']}/massidea/tmp/cache/cake_node:*"
+	  system "rm -f #{ENV['HOME']}/massidea/tmp/cache/models/*"
+	  system "rm -f #{ENV['HOME']}/massidea/tmp/cache/persistent/*"
+	  system "rm -f #{ENV['HOME']}/massidea/tmp/cache/views/*"
+	  puts "Cache files have been deleted."
+    end
+
+    if delete == 'n'
+      exit
+    end
+end
